@@ -2,42 +2,53 @@ package ru.dvayurova.movie_collection.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.dvayurova.movie_collection.dto.MovieDto;
+import ru.dvayurova.movie_collection.dto.MovieDtoMapper;
 import ru.dvayurova.movie_collection.exception.MovieNotFoundException;
 import ru.dvayurova.movie_collection.model.Movie;
 import ru.dvayurova.movie_collection.repository.MovieRepository;
+import ru.dvayurova.movie_collection.validator.MovieInputValidator;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MovieService {
 
     @Autowired
     private MovieRepository repository;
+    @Autowired
+    private MovieDtoMapper movieDtoMapper;
 
-    public List<Movie> getAllMovies(){
-        return repository.findAll();
+    public List<MovieDto> getAllMovies() {
+        return repository.findAll()
+                .stream()
+                .map(movieDtoMapper)
+                .toList();
     }
 
-    public Optional<Movie> getMovieById(Long id){
-        return repository.findById(id);
+    public MovieDto getMovieById(Long id) {
+        return repository.findById(id)
+                .map(movieDtoMapper)
+                .orElseThrow(() -> new MovieNotFoundException(String.format("Movie with id %d wasn't found", id)));
     }
 
-    public Movie createMovie(Movie movie){
-        return repository.save(movie);
+    public void createMovie(MovieDto movieDto) {
+        Movie movie = MovieInputValidator.validate(movieDto);
+        repository.save(movie);
     }
 
-    public Movie updateMovie(Long id, Movie movieUpdates){
+    public void updateMovie(Long id, MovieDto movieDto) {
+        Movie movieUpdates = MovieInputValidator.validate(movieDto);
         Movie movie = repository.findById(id).orElseThrow(() -> new MovieNotFoundException(String.format("Movie with id %d wasn't found", id)));
-        movie.setGenre(movieUpdates.getGenre());
         movie.setTitle(movieUpdates.getTitle());
         movie.setReleaseYear(movieUpdates.getReleaseYear());
         movie.setDirector(movieUpdates.getDirector());
         movie.setCountry(movieUpdates.getCountry());
-        return repository.save(movie);
+        movie.setGenre(movieUpdates.getGenre());
+        repository.save(movie);
     }
 
-    public void deleteMovie(Long id){
+    public void deleteMovie(Long id) {
         Movie movie = repository.findById(id).orElseThrow(() -> new MovieNotFoundException(String.format("Movie with id %d wasn't found", id)));
         repository.delete(movie);
     }

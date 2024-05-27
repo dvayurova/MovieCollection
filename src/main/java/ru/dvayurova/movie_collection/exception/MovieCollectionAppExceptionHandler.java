@@ -17,10 +17,10 @@ public class MovieCollectionAppExceptionHandler {
         return e.getMessage();
     }
 
-    @ExceptionHandler(InvalidGenreException.class)
+    @ExceptionHandler(InvalidInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public String handleInvalidGenreException(InvalidGenreException e) {
+    public String handleInvalidInputException(InvalidInputException e) {
         return e.getMessage();
     }
 }

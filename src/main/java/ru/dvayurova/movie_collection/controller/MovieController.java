@@ -2,9 +2,8 @@ package ru.dvayurova.movie_collection.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.dvayurova.movie_collection.model.Movie;
+import ru.dvayurova.movie_collection.dto.MovieDto;
 import ru.dvayurova.movie_collection.service.MovieService;
 
 import java.util.List;
@@ -16,29 +15,27 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping
-    public List<Movie> getAllMovies(){
+    public List<MovieDto> getAllMovies() {
         return movieService.getAllMovies();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable Long id){
-        return movieService.getMovieById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public MovieDto getMovieById(@PathVariable Long id) {
+        return movieService.getMovieById(id);
     }
 
     @PostMapping
-    public Movie createMovie(@RequestBody Movie movie){
-       return movieService.createMovie(movie);
+    public void createMovie(@RequestBody MovieDto movieDto) {
+        movieService.createMovie(movieDto);
     }
 
     @PatchMapping("/{id}")
-    public Movie updateMovie(@PathVariable Long id, @RequestBody Movie movie){
-        return movieService.updateMovie(id, movie);
+    public void updateMovie(@PathVariable Long id, @RequestBody MovieDto movieDto) {
+        movieService.updateMovie(id, movieDto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMovie(@PathVariable Long id){
+    public void deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
     }
 }
