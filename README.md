@@ -14,7 +14,7 @@
 
 ### API 
 - GET /movies: Возвращает список всех фильмов
-- GET /movies/{id}`: Возвращает фильмо по id
+- GET /movies/{id}`: Возвращает фильм по id
 - POST /movies: Сохраняет новый фильм
 - PATCH /movies/{id}: Обновляет данные фильма
 - DELETE /movies/{id}: Удаляет фильм
