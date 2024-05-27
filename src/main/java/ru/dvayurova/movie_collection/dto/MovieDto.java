@@ -2,6 +2,9 @@ package ru.dvayurova.movie_collection.dto;
 
 import lombok.Builder;
 
+/**
+ * Data Transfer Object для класса Movie
+ */
 @Builder
 public record MovieDto (
          Long id,

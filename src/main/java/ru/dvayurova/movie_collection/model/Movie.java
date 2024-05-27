@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.dvayurova.movie_collection.genres.MovieGenre;
 
+/**
+ * Класс сущности Movie для сохранения в БД
+ */
 
 @Entity
 @Data

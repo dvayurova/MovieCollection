@@ -12,6 +12,9 @@ import ru.dvayurova.movie_collection.service.MovieService;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+/**
+ * Класс для валидации введенных пользователем данных фильма
+ */
 @Service
 public class MovieInputValidator {
 
@@ -19,6 +22,13 @@ public class MovieInputValidator {
     private static final int CURRENT_YEAR = LocalDate.now().getYear();
     private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 
+    /**
+     * Валидирует объект MovieDto
+     *
+     * @param movieDto объект MovieDto для валидации
+     * @return валидный объект Movie
+     * @throws InvalidInputException если значения некорректные
+     */
     public static Movie validate(MovieDto movieDto) {
         if (!isValidTitle(movieDto.title())) {
             logger.error("Title cannot be empty");

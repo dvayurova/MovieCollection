@@ -6,6 +6,9 @@ import ru.dvayurova.movie_collection.model.Movie;
 
 import java.util.function.Function;
 
+/**
+ * Класс для конвертации объекта Movie в MovieDto
+ */
 @Service
 public class MovieDtoMapper implements Function<Movie, MovieDto> {
 
