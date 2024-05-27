@@ -56,7 +56,7 @@ public class MovieInputValidator {
         return releaseYear >= FIRST_MOVIE_RELEASE_YEAR && releaseYear <= CURRENT_YEAR;
     }
 
-    public static MovieGenre validateGenre(String genre) throws InvalidInputException {
+    private static MovieGenre validateGenre(String genre) throws InvalidInputException {
         try {
             return MovieGenre.valueOf(genre.toUpperCase());
         } catch (IllegalArgumentException e) {
