@@ -1,10 +1,7 @@
 package ru.dvayurova.movie_collection.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +20,10 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(name="release_year")
     private int releaseYear;
     private String director;
     private String country;
+    @Enumerated(EnumType.STRING)
     private MovieGenre genre;
 }
